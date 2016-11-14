@@ -7,6 +7,9 @@ import (
 	_ "github.com/lib/pq"
 	//"time",
 	"fmt"
+	su "solox/data_access/structs/users"
+	//sc "solox/data_access/structs/conversations"
+	//se "solox/data_access/structs/events"
 )
 
 type Product struct {
@@ -24,7 +27,7 @@ func main() {
 	}
 	defer db.Close()
 
-	db.AutoMigrate(&Product{})
+	db.AutoMigrate(&su.User{})
 
 }
 
