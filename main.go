@@ -19,10 +19,10 @@ func main() {
 		fmt.Printf("Database opening error -->%v\n", err)
 		//panic("Database error")
 	}
-	db.AutoMigrate(&su.UserSettings{},&su.User{}, &su.UserFilters{},
-		&sc.Conversation{}, &sc.Message{}, &sc.UserConversation{})
 	defer db.Close()
-
+	db.AutoMigrate(&su.UserSettings{}, &su.User{}, &su.UserFilters{},
+		&sc.Conversation{}, &sc.Message{}, &sc.UserConversation{})
+	db.Create(&su.User{FirstName: "Lqweq", Password: "qwerty"})
 	//db.AutoMigrate(&se.Event{},&se.UserEvent{})
 
 

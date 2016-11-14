@@ -4,6 +4,23 @@ import (
 	"github.com/jinzhu/gorm"
 )
 
+type Sex string
+
+const (
+	male Sex = "male"
+	female Sex = "female"
+)
+
+//func (s Sex) Gender() string {
+//	switch s {
+//	case female:
+//		return "female"
+//	case male:
+//		return "male"
+//	}
+//	return "default"
+//}
+
 type User struct {
 	gorm.Model
 	ID        int    `gorm:"primary_key;AUTO_INCREMENT"`
@@ -26,6 +43,9 @@ type UserSettings struct {
 	NotificationModeOn bool `gorm:"not null"`
 }
 
+//type Sex func() bool
+
+
 type UserFilters struct {
 						//gorm.Model
 	User          User    `gorm:"ForeignKey:UserFiltersID;AssociationForeignKey:ID"`
@@ -34,25 +54,6 @@ type UserFilters struct {
 	Sex           Sex     `gorm:"type:sex"` //sex type
 	SearchRadius  int     `gorm:"not null;size:5"`
 }
-
-//type Sex func() bool
-type Sex string
-
-const (
-	male Sex = "male"
-	female Sex = "female"
-)
-
-func (s Sex) Gender() string {
-	switch s {
-	case female:
-		return "female"
-	case male:
-		return "male"
-	}
-	return
-}
-
 
 
 //type Sex int
