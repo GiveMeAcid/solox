@@ -27,7 +27,7 @@ type UserSettings struct {
 }
 
 type UserFilters struct {
-	//gorm.Model
+						//gorm.Model
 	User          User    `gorm:"ForeignKey:UserFiltersID;AssociationForeignKey:ID"`
 	UserFiltersID int     `gorm:"primary_key;AUTO_INCREMENT"`
 	Age           int                       //`gorm:""`
@@ -43,6 +43,15 @@ const (
 	female Sex = "female"
 )
 
+func (s Sex) Gender() string {
+	switch s {
+	case female:
+		return "female"
+	case male:
+		return "male"
+	}
+	return
+}
 
 
 
@@ -53,15 +62,6 @@ const (
 //	Female Sex = iota
 //)
 //
-//func (s Sex) Gender() string {
-//	switch s {
-//	case Female:
-//		return "female"
-//	case Male:
-//		return "male"
-//	}
-//	return
-//}
 
 //func (uf UserFilters) Age() int {
 //
