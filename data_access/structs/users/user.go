@@ -18,16 +18,16 @@ type User struct {
 }
 
 type UserSettings struct {
-	gorm.Model
+	//gorm.Model
 	User               User `gorm:"ForeignKey:UserSettingsID;AssociationForeignKey:ID"`
-	UserSettingsID     int  `gorm:"primary_key;AUTO_INCREMENT"`
+	UserSettingsID     int  `gorm:"primary_key"`
 	NightModeOn        bool `gorm:"not null"`
 	Visibility         bool `gorm:"not null"`
 	NotificationModeOn bool `gorm:"not null"`
 }
 
 type UserFilters struct {
-	gorm.Model
+	//gorm.Model
 	User          User    `gorm:"ForeignKey:UserFiltersID;AssociationForeignKey:ID"`
 	UserFiltersID int     `gorm:"primary_key;AUTO_INCREMENT"`
 	Age           int                       //`gorm:""`

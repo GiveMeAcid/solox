@@ -8,15 +8,9 @@ import (
 	//"time",
 	"fmt"
 	su "solox/data_access/structs/users"
-	//sc "solox/data_access/structs/conversations"
+	sc "solox/data_access/structs/conversations"
 	//se "solox/data_access/structs/events"
 )
-
-type Product struct {
-	gorm.Model
-	Code  string
-	Price uint
-}
 
 func main() {
 	//db, err := gorm.Open("postgres", fmt.Sprintf("postgres://%s:%s@%s/%s?sslmode=disable", "postgres", "31780", "localost", "testbase"))
@@ -25,9 +19,13 @@ func main() {
 		fmt.Printf("Database opening error -->%v\n", err)
 		//panic("Database error")
 	}
+	db.AutoMigrate(&su.UserSettings{},&su.User{}, &su.UserFilters{},
+		&sc.Conversation{}, &sc.Message{}, &sc.UserConversation{})
 	defer db.Close()
 
-	db.AutoMigrate(&su.User{})
+	//db.AutoMigrate(&se.Event{},&se.UserEvent{})
+
+
 
 }
 

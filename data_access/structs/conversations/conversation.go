@@ -7,12 +7,12 @@ import (
 
 type Conversation struct {
 	gorm.Model
-	ConversationId int    `gorm:"primary_key;not null"`
+	ConversationID int    `gorm:"primary_key;not null"`
 	Name           string `gorm:"type:varchar(40)"`
 }
 
 type Message struct {
-	gorm.Model
+	//gorm.Model
 	MessageID      int       `gorm:"primary_key;AUTO_INCREMENT"`
 	UserFk         int       `gorm:"not null"`
 	ConversationFk int       `gorm:"not null"`
@@ -21,7 +21,7 @@ type Message struct {
 }
 
 type UserConversation struct {
-	gorm.Model
+	//gorm.Model
 	UserID         int `gorm:"primary_key;AUTO_INCREMENT;not null"`
 	ConversationId int `gorm:"primary_key;AUTO_INCREMENT;not null"`
 }
