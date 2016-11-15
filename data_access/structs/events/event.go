@@ -2,24 +2,36 @@ package data_access_layer
 
 import _ "solox/data_access/structs/users"
 
-type Type int
+type EventType string
 
 const (
-	couple   Type = 2
-	multiple Type = 5
+	single   EventType = "single"
+	multiple EventType = "multiple"
 )
 
-type Events struct {
+type g_m_s string
+
+const ()
+
+type Event struct {
 	// gorm.Model
-	EventID int `gorm:"primary_key;not null"`
-	Type    Type
-	//Place   g_m_s `gorm:"not null"`
+	EventID int `gorm:"primary_key;not null;index:idx_event_id"`
+	Type    EventType
+	Place   g_m_s `gorm:"not null"`
 }
 
 type UserEvent struct {
-	// gorm.Model
-	User   []Events `gorm:"AssosiationForeignKey:EventID;ForeignKey:UserID"`
-	UserID  int		`gorm:""`
-	EventID int 	`gorm:"not null"`
-	Result  bool
+	UserInfo []Event `gorm:"ForeignKey:UserId;AssociationForeignKey:UserFk"`
+	Events   []Event `gorm:"ForeignKey:EventId;AssociationForeignKey:EventFk"`
+	EventFk  uint    `gorm:"primary_key:true;index:idx_event_fk"`
+	UserFk   uint    `gorm:"primary_key:true"`
+	Result   bool    `gorm:"not null"`
 }
+
+// type UserEvent struct {
+// 	// gorm.Model
+// 	User    []Events `gorm:"AssosiationForeignKey:EventID;ForeignKey:UserID"`
+// 	UserID  int      //`gorm:""`
+// 	EventID int      `gorm:"not null"`
+// 	Result  bool
+// }
