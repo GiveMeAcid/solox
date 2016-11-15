@@ -26,17 +26,17 @@ func main() {
 	db1 := db.AutoMigrate(&user.UserSettings{}, &user.UserFilters{}, &conv.Conversation{}, &conv.Messages{}, &user.UserInfo{},
 		evnt.Event{}, evnt.UserEvent{})
 
-	// db.Model(&conv.UserConversation{}).AddForeignKey("conversation_id", "conversation(id)", "RESTRICT", "RESTRICT")
-	// db.Model(&conv.UserConversation{}).AddForeignKey("id", "user_info(id)", "RESTRICT", "RESTRICT")
 	db.Model(&conv.Messages{}).AddForeignKey("conversation_fk", "conversation(id)", "RESTRICT", "RESTRICT")
 	db.Model(&conv.Messages{}).AddForeignKey("user_fk", "user_info(id)", "RESTRICT", "RESTRICT")
 	db.Model(evnt.UserEvent{}).AddForeignKey("event_fk", "event(event_id)", "RESTRICT", "RESTRICT")
 	db.Model(evnt.UserEvent{}).AddForeignKey("user_fk", "user_info(id)", "RESTRICT", "RESTRICT")
 	db.Model(&user.UserSettings{}).AddForeignKey("user_settings_id", "user_info(id)", "RESTRICT", "RESTRICT")
 	db.Model(&user.UserFilters{}).AddForeignKey("user_filters_id", "user_info(id)", "RESTRICT", "RESTRICT")
-	db.Model(`gorm:"many2many:user_conversations;AssociationForeignKey:UserId;ForeignKey:ConversationId;"`).AddForeignKey("conversation_id", "conversation(id)", "RESTRICT", "RESTRICT")
+	db.Table("user_conversations").AddForeignKey("conversation_id", "conversation(id)", "RESTRICT", "RESTRICT")
+	db.Table("user_conversations").AddForeignKey("user_info_id", "user_info(id)", "RESTRICT", "RESTRICT")
 
-	//db.Model(&conv.UserConversation{}).AddIndex("user_conversation_index", "conversation_id")
+	db.Table("user_conversations").AddIndex("idx_user_conversation", "conversation_id")
+
 	if db1.Error != nil {
 		panic(db1.Error)
 	}

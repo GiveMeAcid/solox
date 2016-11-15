@@ -21,16 +21,15 @@ const (
 )
 
 type UserInfo struct {
-	// gorm.Model
-	UserId       int    `gorm:"primary_key;index:idx_id;column:id"`
-	Login        string `gorm:"type:varchar(40);not null;unique"`
-	FirstName    string `gorm:"type:varchar(30)"`
-	LastName     string `gorm:"type:varchar(50)"`
-	Age          int
-	Email        string `gorm:"type:varchar(60);not null;unique"`
-	PhotoPath    string `gorm:"type:varchar(255)"`
-	Password     string `gorm:"type:varchar(32);not null"`
-	Sex          Sex
+	UserId    int    `gorm:"primary_key;index:idx_id;column:id"`
+	Login     string `gorm:"type:varchar(40);not null;unique"`
+	FirstName string `gorm:"type:varchar(30)"`
+	LastName  string `gorm:"type:varchar(50)"`
+	Age       int
+	Email     string `gorm:"type:varchar(60);not null;unique"`
+	PhotoPath string `gorm:"type:varchar(255)"`
+	Password  string `gorm:"type:varchar(32);not null"`
+	Sex       Sex
 }
 
 type UserSettings struct {
@@ -42,7 +41,6 @@ type UserSettings struct {
 }
 
 type UserFilters struct {
-	// User          User `gorm:"ForeignKey:UserFiltersID;AssociationForeignKey:ID"`
 	UserFiltersID int `gorm:"primary_key;AUTO_INCREMENT;index:idx_user_filters_id"`
 	Age           AgeFilter
 	Sex           Sex

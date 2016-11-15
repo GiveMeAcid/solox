@@ -8,7 +8,6 @@ import (
 )
 
 type Conversation struct {
-	//gorm.Model
 	ConversationId uint `gorm:"primary_key:true;index:idx_conversation_id;auto_increment:true;column:id"`
 	Name           string
 	Users          []user.UserInfo `gorm:"many2many:user_conversations;AssociationForeignKey:UserId;ForeignKey:ConversationId;"`
