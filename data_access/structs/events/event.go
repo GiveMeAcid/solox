@@ -1,6 +1,8 @@
 package data_access_layer
 
-import _ "solox/data_access/structs/users"
+import (
+	driver "database/sql/driver"
+)
 
 type EventType string
 
@@ -9,14 +11,18 @@ const (
 	multiple EventType = "multiple"
 )
 
-type g_m_s string
+type Point struct {
+	X, Y int
+}
 
-const ()
+func Pt(X, Y int) Point {
+	return Point{X, Y}
+}
 
 type Event struct {
 	EventID int `gorm:"primary_key;not null;index:idx_event_id"`
 	Type    EventType
-	Place   g_m_s `gorm:"not null"`
+	Place   Point `gorm:"not null"`
 }
 
 type UserEvent struct {
@@ -25,4 +31,12 @@ type UserEvent struct {
 	EventFk  uint    `gorm:"primary_key:true;index:idx_event_fk"`
 	UserFk   uint    `gorm:"primary_key:true"`
 	Result   bool    `gorm:"not null"`
+}
+
+func (u Point) Scan(value interface{}) error {
+	u = Point(value.(Point))
+	return nil
+}
+func (u Point) Value() (driver.Value, error) {
+	return Point(u), nil
 }

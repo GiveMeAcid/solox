@@ -1,14 +1,16 @@
 package data_access_layer
 
 import (
+	driver "database/sql/driver"
+
 	_ "github.com/jinzhu/gorm"
 )
 
-type Sex string
+type Gender string
 
 const (
-	male   Sex = "male"
-	female Sex = "female"
+	male   Gender = "male"
+	female Gender = "female"
 )
 
 type AgeFilter string
@@ -22,14 +24,14 @@ const (
 
 type UserInfo struct {
 	UserId    int    `gorm:"primary_key;index:idx_id;column:id"`
-	Login     string `gorm:"type:varchar(40);not null;unique"`
+	Login     string `gorm:"type:varchar(40);not null;unique;index:idx_login"`
 	FirstName string `gorm:"type:varchar(30)"`
 	LastName  string `gorm:"type:varchar(50)"`
 	Age       int
 	Email     string `gorm:"type:varchar(60);not null;unique"`
 	PhotoPath string `gorm:"type:varchar(255)"`
 	Password  string `gorm:"type:varchar(32);not null"`
-	Sex       Sex
+	Sex       Gender
 }
 
 type UserSettings struct {
@@ -43,6 +45,14 @@ type UserSettings struct {
 type UserFilters struct {
 	UserFiltersID int `gorm:"primary_key;AUTO_INCREMENT;index:idx_user_filters_id"`
 	Age           AgeFilter
-	Sex           Sex
+	Sex           Gender
 	SearchRadius  int `gorm:"not null;size:5"`
+}
+
+func (u Gender) Scan(value interface{}) error {
+	u = Gender(value.([]byte))
+	return nil
+}
+func (u Gender) Value() (driver.Value, error) {
+	return string(u), nil
 }

@@ -32,6 +32,7 @@ func main() {
 	db.Model(evnt.UserEvent{}).AddForeignKey("user_fk", "user_info(id)", "RESTRICT", "RESTRICT")
 	db.Model(&user.UserSettings{}).AddForeignKey("user_settings_id", "user_info(id)", "RESTRICT", "RESTRICT")
 	db.Model(&user.UserFilters{}).AddForeignKey("user_filters_id", "user_info(id)", "RESTRICT", "RESTRICT")
+	
 	db.Table("user_conversations").AddForeignKey("conversation_id", "conversation(id)", "RESTRICT", "RESTRICT")
 	db.Table("user_conversations").AddForeignKey("user_info_id", "user_info(id)", "RESTRICT", "RESTRICT")
 
