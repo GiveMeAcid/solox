@@ -1,4 +1,4 @@
-package data_access_layer
+package users
 
 import (
 	driver "database/sql/driver"
