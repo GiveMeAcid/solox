@@ -1,8 +1,9 @@
-package data_access_layer
+package conversations
 
 import (
-	user "solox/data_access/structs/users"
 	"time"
+
+	user "github.com/user/solox/data_access/structs/users"
 
 	_ "github.com/jinzhu/gorm"
 )
