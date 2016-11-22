@@ -1,4 +1,4 @@
-package data_access_layer
+package events
 
 import (
 	driver "database/sql/driver"
